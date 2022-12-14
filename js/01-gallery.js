@@ -1,7 +1,6 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
 const galleryEl = document.querySelector('.gallery')
 
 const markUp = galleryItems.map(({ preview, original, description }) => `
@@ -16,4 +15,13 @@ const markUp = galleryItems.map(({ preview, original, description }) => `
   </a>
 </div>`).join('');
 galleryEl.innerHTML = markUp;
-console.log(markUp);
+
+galleryEl.addEventListener('click', onImageClick);
+function onImageClick(evt) {
+  if (evt.target.nodeName !== 'IMG') {
+    return;
+  };
+  
+  console.log(evt.target.getAttribute('data-source'));
+  return evt.target.getAttribute('data-source');
+ };
