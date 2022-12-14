@@ -18,10 +18,21 @@ galleryEl.innerHTML = markUp;
 
 galleryEl.addEventListener('click', onImageClick);
 function onImageClick(evt) {
+  evt.preventDefault();
   if (evt.target.nodeName !== 'IMG') {
     return;
   };
+  const originalLink =  evt.target.getAttribute('data-source');
+  const originalAlt =  evt.target.getAttribute('alt');
+  console.log(originalLink);
+  const instance = basicLightbox.create(`
+  <img
+      class="gallery__image"
+      src="${originalLink}"
+      data-source="${originalLink}"
+      alt="${originalAlt}"
+    />
+ `);
+ instance.show()
   
-  console.log(evt.target.getAttribute('data-source'));
-  return evt.target.getAttribute('data-source');
  };
