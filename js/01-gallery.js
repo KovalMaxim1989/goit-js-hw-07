@@ -14,6 +14,7 @@ const markUp = galleryItems.map(({ preview, original, description }) => `
     />
   </a>
 </div>`).join('');
+
 galleryEl.innerHTML = markUp;
 
 galleryEl.addEventListener('click', onImageClick);
@@ -33,6 +34,15 @@ function onImageClick(evt) {
       alt="${originalAlt}"
     />
  `);
- instance.show()
-  
+ instance.show();
+ window.addEventListener('keydown', onEscKeyPress);
+
+ function onEscKeyPress(evt) {
+  if (evt.code === 'Escape') {
+    instance.close();
+    window.removeEventListener('keydown', onEscKeyPress)
+  }
+     };
  };
+
+ 
