@@ -17,32 +17,57 @@ const markUp = galleryItems.map(({ preview, original, description }) => `
 
 galleryEl.innerHTML = markUp;
 
+// galleryEl.addEventListener('click', onImageClick);
+// function onImageClick(evt) {
+//   evt.preventDefault();
+//   if (evt.target.nodeName !== 'IMG') {
+//     return;
+//   };
+//   const originalLink =  evt.target.getAttribute('data-source');
+//   const originalAlt =  evt.target.getAttribute('alt');
+//   console.log(originalLink);
+//   const instance = basicLightbox.create(`
+//   <img
+//       class="gallery__image"
+//       src="${originalLink}"
+//       data-source="${originalLink}"
+//       alt="${originalAlt}"
+//     />
+//  `);
+//  instance.show();
+//  window.addEventListener('keydown', onEscKeyPress);
+
+//  function onEscKeyPress(evt) {
+//   if (evt.code === 'Escape') {
+//     instance.close();
+//     window.removeEventListener('keydown', onEscKeyPress)
+//   }
+//      };
+//  };
+
 galleryEl.addEventListener('click', onImageClick);
-function onImageClick(evt) {
-  evt.preventDefault();
-  if (evt.target.nodeName !== 'IMG') {
-    return;
-  };
-  const originalLink =  evt.target.getAttribute('data-source');
-  const originalAlt =  evt.target.getAttribute('alt');
-  console.log(originalLink);
-  const instance = basicLightbox.create(`
+ const instance = basicLightbox.create(`
   <img
       class="gallery__image"
-      src="${originalLink}"
-      data-source="${originalLink}"
-      alt="${originalAlt}"
+      src=""
+      
+      alt=""
     />
- `);
- instance.show();
- window.addEventListener('keydown', onEscKeyPress);
-
- function onEscKeyPress(evt) {
-  if (evt.code === 'Escape') {
+ `, {
+   onShow: instance => { window.addEventListener('keydown', onEscClick); },
+   onClose: instance => { window.removeEventListener('keydown', onEscClick); }
+ });
+   
+function onImageClick(evt) {
+  evt.preventDefault();
+  if (evt.target.nodeName !== 'IMG') { return; }
+  instance.element().querySelector('img').src = evt.target.dataset.source;
+  instance.show();
+}
+function onEscClick(evt) {
+  if (evt.key === 'Escape') { 
     instance.close();
-    window.removeEventListener('keydown', onEscKeyPress)
+    return;
   }
-     };
- };
+ }
 
- 
